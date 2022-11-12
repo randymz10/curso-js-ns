@@ -1,5 +1,5 @@
 const express = require('express');
-const bcrypt = requir('bcrypt');
+const bcrypt = require('bcrypt');
 const expressJwt = require('express-jwt');
 const jwt = require('jsonwebtoken');
 const User = require('./user.model');
@@ -55,6 +55,8 @@ const Auth = {
                 const user = await User.create({email: body.email, password: hashed, salt});
 
                 const signed = signToken(user._id);
+                console.log(signed);
+                res.status(201).send(signed);
             }
         } catch (err) {
             res.status(500).send(err.message);
