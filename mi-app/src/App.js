@@ -1,25 +1,51 @@
-import Button from './Button'
+import { Component } from 'react';
 
-
-const arr = [
-    'Chanchito feliz',
-    'Chanchito triste',
-    'Chanchito emocionado'
-]
-const App = () => {
-    const miVariable = false;
-
-    if(miVariable) {
-        return <p>Mi variable dió true</p>;
+class Button extends Component {
+    constructor(props) {
+        super(props)
+        console.log('constructor', props);
     }
-    return (
-        <div>
-            <h1 onClick={(e) => console.log('click', e)}> Hola Mundo</h1>
-            {arr.map(el => <p key={el}>{el}</p>)}
-            <Button onClick={() => console.log('clickeado')}>
-                Enviar</Button>
-        </div>
-    )
+
+    componentDidMount() {
+        console.log('componentDidMount');
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+        console.log('component did update', prevProps, prevState);
+    }
+
+    componentWillUnmount(){
+        console.log('desmontando componente', this.props, this.state);
+    }
+
+    render() {
+        console.log('Ejecutando metodo render de button');
+        return(
+            <button onClick={() => this.setState({prop: 1})}>
+                Enviar
+            </button>
+        );
+    }
+}
+
+class App extends Component {
+    state = {
+        valor: 3
+    }
+    render() {
+        console.log(this.state);
+        return (
+            <div>
+                <p>Hola mundo</p>
+                {this.state.valor === 3 
+                ? <Button chanchito='feliz'/>
+                : null}
+                <button className= {`${this.state.valor}`} onClick={() => this.setState({ valor: 2 })}>
+                    Enviar en App
+                </button>
+            </div>
+        );
+    }
 }
 
 export default App;
